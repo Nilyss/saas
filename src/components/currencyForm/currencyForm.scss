@@ -1,0 +1,149 @@
+@use '../../utils/styles/variables.scss' as vars;
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+}
+
+.calculator form {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 2.5em;
+  color: vars.$fontColor;
+  text-align: center;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  width: 30%;
+  height: 0.15em;
+  background-color: vars.$primaryColor;
+  position: absolute;
+  bottom: -.5em;
+  border-radius: 8px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.totalGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.totalGroup p {
+  font-size: 34px;
+}
+
+.inputsWrapper {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.inputsWrapper div {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputGroup input {
+  width: 100px;
+}
+
+.addExpense {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.addExpense form {
+  width: 100%;
+}
+
+.addExpense .inputWrapper {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.addExpense input {
+  width: 150px;
+}
+
+label {
+  color: vars.$fontColor;
+  font-style: oblique;
+}
+
+input {
+  padding: 1em;
+  text-align: center;
+  height: 2em;
+  font-size: 16px;
+  color: vars.$fontColor;
+  outline-color: vars.$secondaryColor;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+.positive {
+  color: lightgreen;
+}
+
+.negative {
+  color: lightcoral;
+}
+
+button {
+  background-color: #ea4c89;
+  border-radius: 8px;
+  border-style: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: .5em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover,
+button:focus {
+  background-color: #f082ac;
+}
