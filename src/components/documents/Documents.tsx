@@ -39,16 +39,16 @@ export default function Documents(): ReactElement {
   }
 
   return (
-    <>
+    <section className={"documents"}>
       <p>En développement : Section à venir</p>
-      <video ref={videoRef} width="300" height="480" autoPlay />
+      <video ref={videoRef} width="280" height="480" autoPlay />
       <button onClick={captureImage}>Capture</button>
       <canvas
         ref={canvasRef}
-        width="300"
+        width="280"
         height="480"
         style={{ display: 'none' }}
       />
-    </>
+    </section>
   )
 }
