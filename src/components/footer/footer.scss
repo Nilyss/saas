@@ -1,0 +1,15 @@
+@use '../../utils/styles/variables.scss' as vars;
+
+footer {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background: vars.$fontColor;
+}
+
+footer a {
+  color:#ff8e5e;
+  cursor: pointer;
+}

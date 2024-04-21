@@ -16,6 +16,7 @@ import {
 import Header from './components/header/Header'
 import CurrencyForm from './components/currencyForm/CurrencyForm.tsx'
 import Documents from "./components/documents/Documents.tsx";
+import Footer from "./components/footer/Footer.tsx";
 
 function App(): ReactElement {
   return (
@@ -28,6 +29,7 @@ function App(): ReactElement {
           <Route path="/docs" element={<Documents />}></Route>
         </Routes>
       </main>
+      <Footer />
     </Router>
   )
 }
