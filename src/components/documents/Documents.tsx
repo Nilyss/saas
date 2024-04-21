@@ -5,25 +5,27 @@ import { ReactElement } from 'react'
 import { useRef, useEffect } from 'react'
 
 export default function Documents(): ReactElement {
-  const videoRef = useRef(null)
-  const canvasRef = useRef(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (navigator.mediaDevices.getUserMedia) {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((stream: MediaStream): void => {
           if (videoRef.current) {
-            videoRef.current.srcObject = stream
+            videoRef.current.srcObject = stream;
           }
         })
-        .catch((err) => console.error('Error accessing the camera: ', err))
+        .catch((err) => console.error('Error accessing the camera: ', err));
+    } else {
+      console.error("getUserMedia not supported in this browser");
     }
-  }, [])
+  }, []);
 
   const captureImage = (): void => {
     if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext('2d')
+      const context: CanvasRenderingContext2D | null = canvasRef.current.getContext('2d')
       if (context) {
         context.drawImage(
           videoRef.current,
@@ -37,16 +39,16 @@ export default function Documents(): ReactElement {
   }
 
   return (
-    <>
+    <section className={"documents"}>
       <p>En développement : Section à venir</p>
-      <video ref={videoRef} width="640" height="480" autoPlay />
+      <video ref={videoRef} width="280" height="480" autoPlay />
       <button onClick={captureImage}>Capture</button>
       <canvas
         ref={canvasRef}
-        width="640"
+        width="280"
         height="480"
         style={{ display: 'none' }}
       />
-    </>
+    </section>
   )
 }

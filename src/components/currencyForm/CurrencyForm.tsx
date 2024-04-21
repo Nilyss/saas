@@ -15,12 +15,22 @@ export default function CurrencyForm(): ReactElement {
   const [inputs, setInputs] = useState<InputInfo[]>([])
   const [inputName, setInputName] = useState('')
   const [incomeValues, setIncomeValues] = useState<{ [key: string]: number }>(
-    {},
+    () => {
+      return JSON.parse(localStorage.getItem('incomeValues') || '{}')
+    },
   )
   const [expenseValues, setExpenseValues] = useState<{ [key: string]: number }>(
-    {},
+    () => {
+      return JSON.parse(localStorage.getItem('expenseValues') || '{}')
+    },
   )
+
   const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    localStorage.setItem('incomeValues', JSON.stringify(incomeValues))
+    localStorage.setItem('expenseValues', JSON.stringify(expenseValues))
+  }, [incomeValues, expenseValues])
 
   const handleInputNameChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -38,11 +48,18 @@ export default function CurrencyForm(): ReactElement {
   const fixedIncome: string[] = ['Salaire', 'CAF', 'Autres']
   const fixedExpense: string[] = [
     'Loyer',
-    'EDF',
-    'Assurance',
-    'Téléphone',
+    'Électricité, gaz...',
+    'Assurances',
+    'Essence',
+    'Box internet',
+    'Téléphone(s)',
+    'Frais de compte(s) bancaire(s)',
+    'Services VOD (Netflix...)',
+    'Divers (Cigarettes...)',
     'Crédit A',
     'Crédit B',
+    'Crédit C',
+    'Crédit D',
   ]
 
   const handleIncomeChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -94,6 +111,7 @@ export default function CurrencyForm(): ReactElement {
                   id={income}
                   placeholder={'0'}
                   onChange={handleIncomeChange}
+                  value={incomeValues[income] || 0}
                 />
                 <span>€</span>
               </div>
@@ -115,6 +133,7 @@ export default function CurrencyForm(): ReactElement {
                   id={expense}
                   placeholder={'0'}
                   onChange={handleExpenseChange}
+                  value={expenseValues[expense] || 0}
                 />
                 <span>€</span>
               </div>
@@ -130,6 +149,7 @@ export default function CurrencyForm(): ReactElement {
                   id={input.name}
                   placeholder={'0'}
                   onChange={handleExpenseChange}
+                  value={expenseValues[input.name] || 0}
                 />
                 <span>€</span>
               </div>
