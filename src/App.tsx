@@ -15,8 +15,8 @@ import {
 // component
 import Header from './components/header/Header'
 import CurrencyForm from './components/currencyForm/CurrencyForm.tsx'
-import Documents from "./components/documents/Documents.tsx";
-import Footer from "./components/footer/Footer.tsx";
+import Documents from './components/documents/Documents.tsx'
+import Footer from './components/footer/Footer.tsx'
 
 function App(): ReactElement {
   return (
