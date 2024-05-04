@@ -1,4 +1,8 @@
+// styles
 import './header.scss'
+
+// assets
+import logo from '../../assets/logo.png'
 
 // types
 import { ReactElement } from 'react'
@@ -9,7 +13,12 @@ import Navigation from '../navigation/Navigation.tsx'
 export default function Header(): ReactElement {
   return (
     <header>
-      <h1>MoneyDrop</h1>
+      <div>
+        <figure>
+          <img src={logo} alt={'logo'} />
+        </figure>
+        <h1>MoneyDrop</h1>
+      </div>
       <Navigation />
     </header>
   )

@@ -14,18 +14,19 @@ export default function Documents(): ReactElement {
         .getUserMedia({ video: true })
         .then((stream: MediaStream): void => {
           if (videoRef.current) {
-            videoRef.current.srcObject = stream;
+            videoRef.current.srcObject = stream
           }
         })
-        .catch((err) => console.error('Error accessing the camera: ', err));
+        .catch((err) => console.error('Error accessing the camera: ', err))
     } else {
-      console.error("getUserMedia not supported in this browser");
+      console.error('getUserMedia not supported in this browser')
     }
-  }, []);
+  }, [])
 
   const captureImage = (): void => {
     if (videoRef.current && canvasRef.current) {
-      const context: CanvasRenderingContext2D | null = canvasRef.current.getContext('2d')
+      const context: CanvasRenderingContext2D | null =
+        canvasRef.current.getContext('2d')
       if (context) {
         context.drawImage(
           videoRef.current,
@@ -39,7 +40,7 @@ export default function Documents(): ReactElement {
   }
 
   return (
-    <section className={"documents"}>
+    <section className={'documents'}>
       <p>En développement : Section à venir</p>
       <video ref={videoRef} width="280" height="480" autoPlay />
       <button onClick={captureImage}>Capture</button>

@@ -1,17 +1,22 @@
+// styles
 import './currencyForm.scss'
-import {
-  ReactElement,
-  ChangeEvent,
-  useState,
-  FormEvent,
-  useEffect,
-} from 'react'
+
+// types
+import { ReactElement, ChangeEvent } from 'react'
 
 interface InputInfo {
   name: string
 }
 
+// hooks
+import { useState, FormEvent, useEffect } from 'react'
+
+// components
+import PopUp from '../popUp/PopUp'
+
 export default function CurrencyForm(): ReactElement {
+  const [showPopUp, setShowPopUp] = useState(false)
+  const [popUpMessage, setPopUpMessage] = useState('')
   const [inputs, setInputs] = useState<InputInfo[]>([])
   const [inputName, setInputName] = useState('')
   const [incomeValues, setIncomeValues] = useState<{ [key: string]: number }>(
@@ -33,12 +38,11 @@ export default function CurrencyForm(): ReactElement {
   }, [incomeValues, expenseValues])
 
   useEffect(() => {
-    const storedInputs = localStorage.getItem('customInputs');
+    const storedInputs = localStorage.getItem('customInputs')
     if (storedInputs) {
-      setInputs(JSON.parse(storedInputs));
+      setInputs(JSON.parse(storedInputs))
     }
-  }, []);
-
+  }, [])
 
   const handleInputNameChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -48,13 +52,12 @@ export default function CurrencyForm(): ReactElement {
 
   const handleAddInput = (): void => {
     if (inputName) {
-      const newInputs = [...inputs, { name: inputName }];
-      setInputs(newInputs);
-      localStorage.setItem('customInputs', JSON.stringify(newInputs));
-      setInputName('');
+      const newInputs = [...inputs, { name: inputName }]
+      setInputs(newInputs)
+      localStorage.setItem('customInputs', JSON.stringify(newInputs))
+      setInputName('')
     }
   }
-
 
   const fixedIncome: string[] = ['Salaire', 'CAF', 'Autres']
   const fixedExpense: string[] = [
@@ -66,11 +69,7 @@ export default function CurrencyForm(): ReactElement {
     'Téléphone(s)',
     'Frais de compte(s) bancaire(s)',
     'Services VOD (Netflix...)',
-    'Divers (Cigarettes...)',
-    'Crédit A',
-    'Crédit B',
-    'Crédit C',
-    'Crédit D',
+    'Divers (Tabac...)',
   ]
 
   const handleIncomeChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -96,11 +95,23 @@ export default function CurrencyForm(): ReactElement {
   }
 
   const clearInputs = (): void => {
-    localStorage.clear();
-    setInputs([]);
-    setIncomeValues({});
-    setExpenseValues({});
-    setTotal(0);
+    localStorage.clear()
+    setInputs([])
+    setIncomeValues({})
+    setExpenseValues({})
+    setTotal(0)
+    setPopUpMessage('')
+    setShowPopUp(false)
+  }
+
+  const cancelClearInputs = (): void => {
+    setPopUpMessage('')
+    setShowPopUp(false)
+  }
+
+  const showConfirmation = (): void => {
+    setPopUpMessage('Voulez-vous vider toutes les entrées ?')
+    setShowPopUp(true)
   }
 
   useEffect((): void => {
@@ -116,92 +127,100 @@ export default function CurrencyForm(): ReactElement {
   }, [incomeValues, expenseValues])
 
   return (
-      <section className="calculator">
-        <article className={'totalGroup'}>
-          <h2>Reste après les dépenses : </h2>
-          <p className={total >= 0 ? 'total positive' : 'total negative'}>
-            {total.toFixed(2)}
-            <span style={{color: '#2b2a33'}}>€</span>
-          <button onClick={clearInputs}>Vider toutes les entrées</button>
-          </p>
-        </article>
+    <section className="calculator">
+      <article className={'totalGroup'}>
+        <h2>Reste après les dépenses : </h2>
+        <p className={total >= 0 ? 'total positive' : 'total negative'}>
+          {total.toFixed(2)}
+          <span style={{ color: '#2b2a33' }}>€</span>
+          <button onClick={showConfirmation}>Vider toutes les entrées</button>
+        </p>
+      </article>
 
-        <article className={'incomeInputs'}>
-          <h2>Rentrée d'argent : </h2>
-          <div className={'inputsWrapper'}>
-            {fixedIncome.map((income: string, index: number) => (
-                <div key={index} className="inputGroup">
-                  <label htmlFor={income}>{income} :</label>
-                  <div>
-                    <input
-                        type="number"
-                        name={income}
-                        id={income}
-                        placeholder={'0'}
-                        onChange={handleIncomeChange}
-                        value={incomeValues[income] || 0}
-                    />
-                    <span>€</span>
-                  </div>
-                </div>
-            ))}
-          </div>
-        </article>
+      {showPopUp && (
+        <PopUp
+          message={popUpMessage}
+          onConfirm={clearInputs}
+          onCancel={cancelClearInputs}
+        />
+      )}
 
-        <article className="expenseInputs">
-          <h2>Dépenses pour le mois :</h2>
-          <div className={'inputsWrapper'}>
-            {fixedExpense.map((expense: string, index: number) => (
-                <div key={index} className="inputGroup">
-                  <label htmlFor={expense}>{expense} :</label>
-                  <div>
-                    <input
-                        type="number"
-                        name={expense}
-                        id={expense}
-                        placeholder={'0'}
-                        onChange={handleExpenseChange}
-                        value={expenseValues[expense] || 0}
-                    />
-                    <span>€</span>
-                  </div>
-                </div>
-            ))}
-            {inputs.map((input: InputInfo, index: number) => (
-                <div key={index} className="inputGroup">
-                  <label htmlFor={input.name}>{input.name} :</label>
-                  <div>
-                    <input
-                        type="number"
-                        name={input.name}
-                        id={input.name}
-                        placeholder={'0'}
-                        onChange={handleExpenseChange}
-                        value={expenseValues[input.name] || 0}
-                    />
-                    <span>€</span>
-                  </div>
-                </div>
-            ))}
-          </div>
-        </article>
-
-        <article className={'addExpense'}>
-          <h2>Ajouter une dépense :</h2>
-          <form onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
-            <div className="inputWrapper">
-              <label htmlFor="inputName">Nom :</label>
-              <input
-                  id="inputName"
-                  value={inputName}
-                  onChange={handleInputNameChange}
-                  type="text"
-                  placeholder="Essence, Sac ..."
-              />
-              <button onClick={handleAddInput}>Ajouter</button>
+      <article className={'incomeInputs'}>
+        <h2>Rentrée d'argent : </h2>
+        <div className={'inputsWrapper'}>
+          {fixedIncome.map((income: string, index: number) => (
+            <div key={index} className="inputGroup">
+              <label htmlFor={income}>{income} :</label>
+              <div>
+                <input
+                  type="number"
+                  name={income}
+                  id={income}
+                  placeholder={'0'}
+                  onChange={handleIncomeChange}
+                  value={incomeValues[income] || 0}
+                />
+                <span>€</span>
+              </div>
             </div>
-          </form>
-        </article>
-      </section>
+          ))}
+        </div>
+      </article>
+
+      <article className="expenseInputs">
+        <h2>Dépenses pour le mois :</h2>
+        <div className={'inputsWrapper'}>
+          {fixedExpense.map((expense: string, index: number) => (
+            <div key={index} className="inputGroup">
+              <label htmlFor={expense}>{expense} :</label>
+              <div>
+                <input
+                  type="number"
+                  name={expense}
+                  id={expense}
+                  placeholder={'0'}
+                  onChange={handleExpenseChange}
+                  value={expenseValues[expense] || 0}
+                />
+                <span>€</span>
+              </div>
+            </div>
+          ))}
+          {inputs.map((input: InputInfo, index: number) => (
+            <div key={index} className="inputGroup">
+              <label htmlFor={input.name}>{input.name} :</label>
+              <div>
+                <input
+                  type="number"
+                  name={input.name}
+                  id={input.name}
+                  placeholder={'0'}
+                  onChange={handleExpenseChange}
+                  value={expenseValues[input.name] || 0}
+                />
+                <span>€</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article className={'addExpense'}>
+        <h2>Ajouter une dépense :</h2>
+        <form onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}>
+          <div className="inputWrapper">
+            <label htmlFor="inputName">Nom :</label>
+            <input
+              id="inputName"
+              value={inputName}
+              onChange={handleInputNameChange}
+              type="text"
+              placeholder="Essence, Sac ..."
+            />
+            <button onClick={handleAddInput}>Ajouter</button>
+          </div>
+        </form>
+      </article>
+    </section>
   )
 }

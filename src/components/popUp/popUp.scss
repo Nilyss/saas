@@ -1,0 +1,52 @@
+@use '../../utils/styles/variables.scss' as vars;
+@use '../../utils/styles/mixins.scss' as mixins;
+
+.popUp {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: vars.$secondaryBackgroundColor;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5em;
+  z-index: 9999;
+}
+
+.popUp p {
+  color: vars.$secondaryFontColor;
+  font-size: 5dvw;
+  text-align: center;
+}
+
+.popUp div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
+}
+
+.popUp button {
+  font-size: 4dvw !important;
+  text-transform: uppercase;
+  @include mixins.pinkButton();
+}
+
+.popUp button:hover,
+.popUp button:focus {
+  @include mixins.pinkButtonHoverAndFocus();
+  color: vars.$secondaryFontColor !important;
+}
+
+.confirm {
+  color: vars.$fontColor !important;
+  background: vars.$successColor !important;
+}
+
+.cancel {
+  color: vars.$fontColor !important;
+  background: vars.$errorColor !important;
+}
