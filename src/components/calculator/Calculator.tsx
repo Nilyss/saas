@@ -1,5 +1,5 @@
 // styles
-import './currencyForm.scss'
+import './calculator.scss'
 
 // types
 import { ReactElement, ChangeEvent } from 'react'
@@ -14,7 +14,7 @@ import { useState, FormEvent, useEffect } from 'react'
 // components
 import PopUp from '../popUp/PopUp'
 
-export default function CurrencyForm(): ReactElement {
+export default function Calculator(): ReactElement {
   const [showPopUp, setShowPopUp] = useState(false)
   const [popUpMessage, setPopUpMessage] = useState('')
   const [inputs, setInputs] = useState<InputInfo[]>([])
@@ -215,7 +215,7 @@ export default function CurrencyForm(): ReactElement {
               value={inputName}
               onChange={handleInputNameChange}
               type="text"
-              placeholder="Essence, Sac ..."
+              placeholder="Courses, Sac ..."
             />
             <button onClick={handleAddInput}>Ajouter</button>
           </div>

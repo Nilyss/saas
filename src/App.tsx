@@ -14,7 +14,7 @@ import {
 
 // component
 import Header from './components/header/Header'
-import CurrencyForm from './components/currencyForm/CurrencyForm.tsx'
+import Calculator from './components/calculator/Calculator.tsx'
 import Documents from './components/documents/Documents.tsx'
 import Footer from './components/footer/Footer.tsx'
 
@@ -25,7 +25,7 @@ function App(): ReactElement {
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/calculator" />}></Route>
-          <Route path="/calculator" element={<CurrencyForm />}></Route>
+          <Route path="/calculator" element={<Calculator />}></Route>
           <Route path="/docs" element={<Documents />}></Route>
         </Routes>
       </main>

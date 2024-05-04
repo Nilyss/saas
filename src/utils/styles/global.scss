@@ -1,3 +1,5 @@
+@use './variables.scss' as vars;
+
 /* CSS Reset */
 *,
 *::before,
@@ -26,7 +28,23 @@ body {
   line-height: 1;
   font-family: 'Ubuntu', sans-serif;
   cursor: default;
+  overflow-x: hidden;
+}
+
+main,
+header {
+  @media (min-width: vars.$tabletWidth) {
+    max-width: 768px;
+    margin: auto;
+  }
+  @media (min-width: vars.$desktopWidth) {
+    max-width: 1024px;
+    margin: auto;
+  }
   background: #f2f2f2;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
 }
 
 ol,
