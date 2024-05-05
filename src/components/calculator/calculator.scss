@@ -50,6 +50,11 @@ h2::after {
   padding-top: 1em;
   padding-bottom: 2em;
   border-radius: 0 0 12px 12px;
+  box-shadow:
+    rgba(60, 64, 67, 0.3) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 1px 3px 1px;
+  min-width: 100.3%;
+  transform: translateX(-0.15%);
 }
 
 .totalGroup p {
@@ -115,12 +120,12 @@ h2::after {
   width: 150px;
 }
 
-label {
+.calculator label {
   color: vars.$fontColor;
   font-style: oblique;
 }
 
-input {
+.calculator input {
   padding: 1em;
   text-align: center;
   height: 2em;
@@ -129,8 +134,8 @@ input {
   outline-color: vars.$secondaryColor;
 }
 
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+.calculator input[type='number']::-webkit-inner-spin-button,
+.calculator input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -139,11 +144,11 @@ input[type='number'] {
   -moz-appearance: textfield; /* Firefox */
 }
 
-.positive {
+.calculator .positive {
   color: vars.$successColor;
 }
 
-.negative {
+.calculator .negative {
   color: vars.$errorColor;
 }
 

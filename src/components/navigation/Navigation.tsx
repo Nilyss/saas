@@ -16,6 +16,16 @@ export default function Navigation(): ReactElement {
             Calculateur
           </NavLink>
         </li>
+        <li>
+          <NavLink
+            to="/stats"
+            className={({ isActive }: { isActive: boolean }): string =>
+              isActive ? 'active' : ''
+            }
+          >
+            Statistiques
+          </NavLink>
+        </li>
         {/*<li>*/}
         {/*  <NavLink*/}
         {/*    to="/docs"*/}
