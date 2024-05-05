@@ -1,0 +1,10 @@
+@use '../../utils/styles/variables.scss' as vars;
+@use '../../utils/styles/mixins.scss' as mixins;
+
+.sectionHeader {
+  background: vars.$secondaryBackgroundColor;
+}
+
+.sectionHeader h2 {
+  color: vars.$secondaryFontColor;
+}
